@@ -10,17 +10,15 @@ agent = get_agent()
 config = {
     "fastapi":{
         "title":"Clinic Analytics API",
-        "version":"1.0",
-        "description":"API to query clinic data using Vanna Agent"
-    },
-    "dev_mode": True
+        "version":"1.0.0",
+    }
 }
 
 #3. Initialize Vanna Server using config
 vanna_server = VannaFastAPIServer(agent,config=config)
 
 #4. Access app created by Vanna
-app = vanna_server.app
+app = getattr(vanna_server, 'app', None)    
 
 @app.get("/health")
 def health_check():
