@@ -15,7 +15,7 @@ load_dotenv()
 class SimpleUserResolver(UserResolver):
     def resolve_user(self, request_context: RequestContext) -> User:
         # For demonstration, we return a static user. In production, this should be dynamic.
-        return User(user_id="123", name="Test User", access_groups=["admin"])
+        return User(id="123", name="Test User", access_groups=["admin"])
 
 def get_agent():
     #1. LLM Service 
