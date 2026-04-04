@@ -13,7 +13,7 @@ from vanna.integrations.google import GeminiLlmService
 load_dotenv()
 
 class SimpleUserResolver(UserResolver):
-    def resolve_user(self, request_context: RequestContext) -> User:
+    async def resolve_user(self, request_context: RequestContext) -> User:
         # For demonstration, we return a static user. In production, this should be dynamic.
         return User(id="123", name="Test User", access_groups=["admin"])
 
