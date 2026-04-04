@@ -16,7 +16,8 @@ def safe_run_sql_wrapper(sql:str,**kwargs):
         summary = result["summary"]
         
         # Add summary as a extra row
-        summary_df = pd.DataFrame("Summary":[summary])
+        summary_df = pd.DataFrame({col: "" for col in df.columns}, index=[0])
+        summary_df[df.columns[0]] = f"Summary: {summary}"
         return pd.concat([df,summary_df],ignore_index=True)
     return result
 
