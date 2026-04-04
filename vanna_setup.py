@@ -81,8 +81,8 @@ def validate_and_run_sql(agent,question_or_sql):
     
     # ERROR HANDLING & EXECUTION
     try:
-        db_tool = agent.tool_registry.get_tools(access_groups=['admin'])[0]
-        df = db_tool.run(sql_query)
+        db_tool = RunSqlTool(SqliteRunner('clinic.db'))
+        df = db_tool.run(sql=sql_query)
         
         # Check for empty result
         if df is None or (isinstance(df,pd.DataFrame) and df.empty):
@@ -92,7 +92,11 @@ def validate_and_run_sql(agent,question_or_sql):
         summary = agent.generate_summary(question_or_sql,df)
         # Return both table and summary
         print(f"Summary: {summary}")
-        return df
-    
+        return {
+            "data": df,
+            "summary": summary
+        }
+
     except Exception as e:
+        print(f"Internal error: {e}")
         return f"Database Error: I encountered an error while executing the SQL query. Details: {str(e)}"
