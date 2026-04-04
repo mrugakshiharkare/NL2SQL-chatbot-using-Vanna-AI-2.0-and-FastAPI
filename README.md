@@ -36,6 +36,12 @@ GOOGLE_API_KEY=your_gemini_api_key_here
 
 ### 4. Run the Application  
 python main.py
+`Open your browser and go to http://localhost:8084 to start asking questions!`
+
+### 💡 Try These Questions:
+1. "Show me all the doctors in the clinic."
+2. "Who are the patients with appointments today?"
+3. "Which doctor has the most appointments?"
 
 ## 🧠 Project Architecture & Approach
 - This project follows the Vanna 2.0 Registry Pattern:
@@ -43,7 +49,26 @@ python main.py
 - User Resolver: Implements a SimpleUserResolver to handle mock authentication.
 - Custom Runner: Instead of using the default execution, a custom_run_sql wrapper was implemented in main.py to add a security validation layer and format the final output with a summary row.
 
-## ⚠️ Challenges & Troubleshooting
-1. API Rate Limits (429 Errors): Encountered "Resource Exhausted" errors due to Gemini's Free Tier limits. Solved by implementing a clean shutdown of ghost processes and switching to the stable gemini-1.5-flash model.
-2. Model Path Configuration: Some "latest" model aliases were not recognized by the google-genai SDK. Resolved this by using the explicit models/gemini-2.5-flash path.
-3. UI Data Rendering: Initial issues with the table not appearing in the UI were fixed by ensuring the custom wrapper always returns a consistent Pandas DataFrame instead of raw strings.
+## 🧪 Problems I Faced and How I Fixed Them
+
+During this project, I ran into several challenges. Instead of giving up, I created small scripts to help me debug each issue. Here is the honest story of how I built this:
+
+### 1. Error with the AI Model Name
+At first, I was just typing `gemini-2.0-flash` in my code. I read the documentation and realized it should be written as `models/gemini-2.0-flash`. Even after changing that, it still wasn't working! 
+* **The Fix:** I created a special file called **`check_models.py`**. This script talked to Google and printed out a list of every single model name my API key was allowed to use. This helped me find the exact correct name that the system would accept (like `models/gemini-2.0-flash`).
+
+### 2. API "Out of Breath" (429 Error)
+Since I am using the free version of Gemini, the system would often stop working and say "Resource Exhausted." This happened because I was testing the code too fast and hitting the limit.
+* **The Fix:** I learned to "kill" any hidden Python tasks running in the background using the terminal (`taskkill` commands). I also simplified the code so the AI doesn't have to do extra work, which saved my "daily limit" and kept the connection stable.
+
+### 3. Database Issues and `check_db.py`
+Sometimes the AI would write a perfect SQL query, but the table would come back empty or show an error. I wasn't sure if the problem was the AI's logic or my actual database file (`clinic.db`).
+* **The Fix:** I created **`check_db.py`**. I used this to manually look inside my database to make sure the tables (like Patients and Doctors) actually existed and had data in them. This proved my database was fine, so I knew the problem was in how the AI was connecting to it.
+
+### 4. Table Not Showing in the Browser
+In the beginning, I could see the SQL query on the screen, but the actual data table was missing. It turned out I had a small mistake in my `main.py` where I was trying to use a function before I had even created it (a `NameError`).
+* **The Fix:** I rearranged my code so the functions are defined at the top. I also made sure the data is sent back as a **Pandas DataFrame**, because that is the only format the Vanna website understands to draw a proper table.
+
+### 5. Adding the Summary Row
+The assignment asked for a summary of the data. Since the Vanna website usually just shows a standard table, I had to figure out a way to "inject" a summary manually.
+* **The Fix:** I wrote a custom function that takes the result table, adds one extra row at the bottom, and writes **"Summary: [Total Rows]"** in that row. This ensures the user sees the data and the total count clearly in one view.
