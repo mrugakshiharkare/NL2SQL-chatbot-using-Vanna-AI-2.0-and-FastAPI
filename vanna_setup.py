@@ -20,7 +20,7 @@ class SimpleUserResolver(UserResolver):
 def get_agent():
     #1. LLM Service 
     llm = GeminiLlmService(
-        model = 'gemini-2.0-pro',
+        model = "gemini-1.5-flash",
         api_key = os.getenv('GOOGLE_API_KEY'))
     
     # Database connection
