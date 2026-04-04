@@ -21,7 +21,7 @@ class SimpleUserResolver(UserResolver):
 def get_agent():
     #1. LLM Service 
     llm = GeminiLlmService(
-        model = "models/gemini-2.5-flash",
+        model = "models/gemini-2.0-flash",
         api_key = os.getenv('GOOGLE_API_KEY'))
     
     # Database connection
@@ -40,12 +40,20 @@ def get_agent():
     
     #5. Agent Intialize
     agent = Agent(
-        config=AgentConfig(),
+        config=AgentConfig(system_prompt="""You are a SQL assistant.
+        IMPORTANT RULES:
+        - Always use RunSqlTool to answer questions.
+        - NEVER return Python code.
+        - NEVER return print statements.
+        - Execute SQL and return results.
+        - After getting results, provide a short summary.
+        """),
         llm_service = llm,
         tool_registry = registry,
         agent_memory = agent_memory,
         user_resolver = SimpleUserResolver()
     )
+    agent.default_tool = "RunSqlTool"
     return agent
 
 if __name__ == '__main__':
