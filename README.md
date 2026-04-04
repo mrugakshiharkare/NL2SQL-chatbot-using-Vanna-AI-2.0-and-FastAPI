@@ -51,7 +51,7 @@ python main.py
 
 ## 🧪 Problems I Faced and How I Fixed Them
 
-During this project, I ran into several challenges. Instead of giving up, I created small scripts to help me debug each issue. Here is the honest story of how I built this:
+During this project, I ran into several challenges.Here is the story of how I built this:
 
 ### 1. Error with the AI Model Name
 At first, I was just typing `gemini-2.0-flash` in my code. I read the documentation and realized it should be written as `models/gemini-2.0-flash`. Even after changing that, it still wasn't working! 
