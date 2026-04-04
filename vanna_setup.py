@@ -58,16 +58,15 @@ if __name__ == '__main__':
 
 def validate_and_run_sql(agent,question_or_sql):
     #1. Generate SQL using agent
-    sql_query = query_or_sql
-    if not("SELECT" in sql_query,upper()):
+    sql_query = question_or_sql.strip()
+    if not("SELECT" in sql_query.upper()):
         try:
-            sql_query = agent.generate_sql(question)
+            sql_query = agent.generate_sql(question_or_sql)
         except Exception as e:
-            pass
+            return f"Error generating SQL: {str(e)}"
     
     # SQL VALIDATION
     forbidden_keywords = ["INSERT","UPDATE","DELETE","DROP","ALTER","EXEC","XP_","SP_","GRANT","REVOKE","SHUTDOWN","SQLITE_MASTER"]
-    
     clean_sql = sql_query.strip().upper()
     
     # Validation 1: Must be SELECT
@@ -82,11 +81,18 @@ def validate_and_run_sql(agent,question_or_sql):
     
     # ERROR HANDLING & EXECUTION
     try:
-        df = agent.run_sql(sql_query)
+        db_tool = agent.tool_registry.get_tools(access_groups=['admin'])[0]
+        df = db_tool.run(sql_query)
         
         # Check for empty result
         if df is None or (isinstance(df,pd.DataFrame) and df.empty):
             return "No data found for this request."
+        
+        # GENERATE SUMMARY
+        summary = agent.generate_summary(question_or_sql,df)
+        # Return both table and summary
+        print(f"Summary: {summary}")
         return df
+    
     except Exception as e:
         return f"Database Error: I encountered an error while executing the SQL query. Details: {str(e)}"

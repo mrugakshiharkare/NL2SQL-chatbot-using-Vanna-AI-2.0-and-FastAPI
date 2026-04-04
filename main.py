@@ -12,7 +12,7 @@ def safe_run_sql_wrapper(sql:str,**kwargs):
         return pd.DataFrame({"Message":[result]})
     return result
 
-agent.run_sql = safe_run_sql_wrapper
+# agent.run_sql = safe_run_sql_wrapper
 
 #2. Initialize Vanna FastAPI Server
 vanna_server = VannaFastAPIServer(agent)
