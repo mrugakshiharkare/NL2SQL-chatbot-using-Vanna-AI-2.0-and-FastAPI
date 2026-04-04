@@ -58,8 +58,9 @@ At first, I was just typing `gemini-2.0-flash` in my code. I read the documentat
 * **The Fix:** I created a special file called **`check_models.py`**. This script talked to Google and printed out a list of every single model name my API key was allowed to use. This helped me find the exact correct name that the system would accept (like `models/gemini-2.0-flash`).
 
 ### 2. API "Out of Breath" (429 Error)
-Since I am using the free version of Gemini, the system would often stop working and say "Resource Exhausted." This happened because I was testing the code too fast and hitting the limit.
-* **The Fix:** I learned to "kill" any hidden Python tasks running in the background using the terminal (`taskkill` commands). I also simplified the code so the AI doesn't have to do extra work, which saved my "daily limit" and kept the connection stable.
+Since I am using the free version of Gemini, the system would often stop working and say "Resource Exhausted." This was the most frustrating part of the project because I tried everything to fix it:
+* **What I tried:** First, I waited for one minute (or the time shown in the error), but it still wouldn't work. Then, I tried switching to different models to see if they had more space, but the same issue happened. I even generated a brand-new API key, but the error didn't go away!
+* **The Fix:** I eventually realized that "ghost" Python processes were still running in the background and holding onto the old, exhausted connection. I learned to "kill" these hidden tasks using the terminal. I also simplified the code to stop the AI from doing extra work, which finally saved my "daily limit" and made the connection stable.
 
 ### 3. Database Issues and `check_db.py`
 Sometimes the AI would write a perfect SQL query, but the table would come back empty or show an error. I wasn't sure if the problem was the AI's logic or my actual database file (`clinic.db`).
