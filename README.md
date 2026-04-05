@@ -74,6 +74,14 @@ In the beginning, I could see the SQL query on the screen, but the actual data t
 The assignment asked for a summary of the data. Since the Vanna website usually just shows a standard table, I had to figure out a way to "inject" a summary manually.
 * **The Fix:** I wrote a custom function that takes the result table, adds one extra row at the bottom, and writes **"Summary: [Total Rows]"** in that row. This ensures the user sees the data and the total count clearly in one view.
 
+### 6. API Quota & Global Synchronization Challenges
+* **The Problem:** During the final verification phase, the system encountered persistent `429 RESOURCE_EXHAUSTED` errors. Despite the Google Cloud Console indicating that the daily quota had reset (0 requests used), the API Gateway remained locked due to a "Sync Lag" between global server regions.
+* **The Strategy (Troubleshooting & Resolution):**
+    1.  **Account & Identity Rotation:** To bypass the cached quota state, I transitioned the project to a fresh Google Service Account and generated a new API Key.
+    2.  **Initial Retry & Burst Handling:** When the first request on the new key hit a temporary burst limit, I did not stop. I implemented a secondary retry after a 60-second cooldown.
+    3.  **Model Optimization:** I pivoted the implementation from Gemini 2.0 to **Gemini 2.5 Flash**. This specific model provided the necessary stability and higher throughput required to process the SQL generation and data summarization simultaneously.
+* **The Result:** This multi-step workaround successfully restored the chatbot's functionality, allowing for the final capture of system performance metrics and successful query results.
+
 ## 📸 Project Visuals
 
 ### 1. System Configuration & Setup
