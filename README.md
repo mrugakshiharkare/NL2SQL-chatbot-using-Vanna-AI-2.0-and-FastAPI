@@ -82,8 +82,7 @@ https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAP
 
 ### 2. Handling API Challenges
 I documented the "Resource Exhausted" errors I faced during development to show my debugging process.
-![API Error](./screenshots/api_error.png)
-![Quota Limit](./screenshots/quota_limit.png)
+https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_error_msg.png
 
 ### 3. Final Successful Results
 The AI correctly translates natural language into SQL and provides a data summary.
