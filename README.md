@@ -1,6 +1,6 @@
 # 🏥 Clinic Analytics AI Agent
 
-This project is a **Natural Language to SQL (NL-to-SQL)** AI Assistant built using the **Vanna.ai** framework and **Google Gemini 1.5 Flash**. It allows users to ask questions about clinic data (patients, doctors, appointments) in plain English and retrieves the results directly from a SQLite database.
+This project is a **Natural Language to SQL (NL-to-SQL)** AI Assistant built using the **Vanna.ai** framework and **Google Gemini 2.5 Flash**. It allows users to ask questions about clinic data (patients, doctors, appointments) in plain English and retrieves the results directly from a SQLite database.
 
 ## 🚀 Features
 - **Natural Language Querying:** Converts English questions into accurate SQL queries.
