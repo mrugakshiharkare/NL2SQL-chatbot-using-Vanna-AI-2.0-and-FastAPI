@@ -27,7 +27,7 @@ git clone [<your-github-repo-link>](https://github.com/mrugakshiharkare/NL2SQL-c
 cd AI_ML_Intern_assignment
 
 ### 2. Install dependencies
-pip install -r requirements.txt
+pip install -r requirements.txt  
 `(Note: Ensure vanna[fastapi,gemini] is installed.)`
 
 ### 3. Configure Environment Variables
