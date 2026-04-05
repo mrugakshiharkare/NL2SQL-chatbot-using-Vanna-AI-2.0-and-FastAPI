@@ -78,7 +78,7 @@ The assignment asked for a summary of the data. Since the Vanna website usually 
 
 ### 1. System Configuration & Setup
 This shows the successful connection to the database and the Gemini API.
-![System Ready](./screenshots/system_ready.png)
+https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_opening_interface.png
 
 ### 2. Handling API Challenges
 I documented the "Resource Exhausted" errors I faced during development to show my debugging process.
