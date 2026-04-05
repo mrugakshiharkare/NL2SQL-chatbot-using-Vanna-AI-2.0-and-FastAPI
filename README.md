@@ -86,6 +86,5 @@ https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAP
 
 ### 3. Final Successful Results
 The AI correctly translates natural language into SQL and provides a data summary.
-![Query Result 1](./screenshots/success_query_1.png)
-![Query Result 2](./screenshots/success_query_2.png)
-![Data Summary Row](./screenshots/summary_row.png)
+![Query Result 1]https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_query_returned.png
+![Data Summary Row]https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_output_response.png
