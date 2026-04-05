@@ -16,12 +16,12 @@ load_dotenv()
 class SimpleUserResolver(UserResolver):
     async def resolve_user(self, request_context: RequestContext) -> User:
         # For demonstration, we return a static user. In production, this should be dynamic.
-        return User(id="123", name="Test User", access_groups=["admin"])
+        return User(id="123", email="admin@example.com", group_memberships=["admin"])
 
 def get_agent():
     #1. LLM Service 
     llm = GeminiLlmService(
-        model = "models/gemini-2.0-flash",
+        model = "gemini-2.5-flash",
         api_key = os.getenv('GOOGLE_API_KEY'))
     
     # Database connection
@@ -35,34 +35,26 @@ def get_agent():
     registry = ToolRegistry()
     registry.register_local_tool(db_tool,access_groups=['admin','user'])
     registry.register_local_tool(VisualizeDataTool(),access_groups=['admin','user'])
-    registry.register_local_tool(SaveQuestionToolArgsTool(),access_groups=['admin','user'])
+    registry.register_local_tool(SaveQuestionToolArgsTool(),access_groups=['admin'])
     registry.register_local_tool(SearchSavedCorrectToolUsesTool(),access_groups=['admin','user'])
     
-    #5. Agent Intialize
+    #5. Agent Intialization
     agent = Agent(
-        config=AgentConfig(system_prompt="""You are a SQL assistant.
-        IMPORTANT RULES:
-        - Always use RunSqlTool to answer questions.
-        - NEVER return Python code.
-        - NEVER return print statements.
-        - Execute SQL and return results.
-        - After getting results, provide a short summary.
-        """),
+        config=AgentConfig(system_prompt="You are a SQL assistant for a Clinic. Use RunSqlTool to answer data questions.",allow_llm_to_see_data=True),
         llm_service = llm,
         tool_registry = registry,
         agent_memory = agent_memory,
         user_resolver = SimpleUserResolver()
     )
-    agent.default_tool = "RunSqlTool"
     return agent
 
-if __name__ == '__main__':
-    #Test the agent
-    try:
-        my_agent = get_agent()
-        print("Vanna 2.0 Agent succesfully initialized!")
-    except Exception as e:
-        print(f"Error initializing Vanna 2.0 Agent: {e}")
+# if __name__ == '__main__':
+#     #Test the agent
+#     try:
+#         my_agent = get_agent()
+#         print("Vanna 2.0 Agent succesfully initialized!")
+#     except Exception as e:
+#         print(f"Error initializing Vanna 2.0 Agent: {e}")
 
 def validate_and_run_sql(agent,question_or_sql):
     #1. Generate SQL using agent
@@ -89,22 +81,19 @@ def validate_and_run_sql(agent,question_or_sql):
     
     # ERROR HANDLING & EXECUTION
     try:
-        db_tool = RunSqlTool(SqliteRunner('clinic.db'))
-        df = db_tool.run(sql=sql_query)
+        db_runner = SqliteRunner(database_path='clinic.db')
+        df = db_runner.run_sql(sql_query)
         
         # Check for empty result
-        if df is None or (isinstance(df,pd.DataFrame) and df.empty):
+        if df is None or df.empty:
             return "No data found for this request."
         
         # GENERATE SUMMARY
-        summary = agent.generate_summary(question_or_sql,df)
-        # Return both table and summary
-        print(f"Summary: {summary}")
-        return {
-            "data": df,
-            "summary": summary
-        }
-
+        summary = f"Query executed successfully with {len(df)} rows returned."
+        # Create summary row
+        summary_row = pd.DataFrame([{col: "" for col in df.columns}])
+        summary_row.iloc[0,0] = summary
+        return pd.concat([df,summary_row],ignore_index=True)
+       
     except Exception as e:
-        print(f"Internal error: {e}")
-        return f"Database Error: I encountered an error while executing the SQL query. Details: {str(e)}"
+        return f"Database Error: {str(e)}"

@@ -5,24 +5,23 @@ from vanna.servers.fastapi import VannaFastAPIServer
 # Initialize Agent
 agent = get_agent()
 
-def safe_run_sql_wrapper(sql:str,**kwargs):
+def scustom_run_sql(sql:str,**kwargs):
     result = validate_and_run_sql(agent,sql)
     
     if isinstance(result,str):
         return pd.DataFrame({"Message":[result]})
     
-    if isinstance(result,dict):
-        df = result["data"]
-        summary = result["summary"]
+    # if isinstance(result,dict):
+    #     df = result["data"]
+    #     summary = result["summary"]
         
-        # Add summary as a extra row
-        summary_df = pd.DataFrame({col: "" for col in df.columns}, index=[0])
-        summary_df[df.columns[0]] = f"Summary: {summary}"
-        return pd.concat([df,summary_df],ignore_index=True)
+    #     # Add summary as a extra row
+    #     summary_df = pd.DataFrame({col: "" for col in df.columns}, index=[0])
+    #     summary_df[df.columns[0]] = f"Summary: {summary}"
+    #     return pd.concat([df,summary_df],ignore_index=True)
     return result
-
-# Wrapper 
-agent.run_sql = safe_run_sql_wrapper
+# Assign custom runner
+agent.run_sql = scustom_run_sql
 
 # Initialize Vanna FastAPI Server
 vanna_server = VannaFastAPIServer(agent)
