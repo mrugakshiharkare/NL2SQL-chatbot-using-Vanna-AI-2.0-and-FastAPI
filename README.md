@@ -77,14 +77,14 @@ The assignment asked for a summary of the data. Since the Vanna website usually 
 ## 📸 Project Visuals
 
 ### 1. System Configuration & Setup
-This shows the successful connection to the database and the Gemini API.
+This shows the successful connection to the database and the Gemini API.  
 https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_opening_interface.png
 
 ### 2. Handling API Challenges
-I documented the "Resource Exhausted" errors I faced during development to show my debugging process.
+I documented the "Resource Exhausted" errors I faced during development to show my debugging process.  
 https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_error_msg.png
 
-### 3. Final Successful Results
-The AI correctly translates natural language into SQL and provides a data summary.
-![Query Result 1]https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_query_returned.png
+### 3. Final Successful Results  
+The AI correctly translates natural language into SQL and provides a data summary.  
+![Query Result 1]https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_query_returned.png  
 ![Data Summary Row]https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/vanna_2.0_responses/vanna_2.0_output_response.png
