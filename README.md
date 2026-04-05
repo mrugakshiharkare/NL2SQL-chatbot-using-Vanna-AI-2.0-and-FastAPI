@@ -73,3 +73,20 @@ In the beginning, I could see the SQL query on the screen, but the actual data t
 ### 5. Adding the Summary Row
 The assignment asked for a summary of the data. Since the Vanna website usually just shows a standard table, I had to figure out a way to "inject" a summary manually.
 * **The Fix:** I wrote a custom function that takes the result table, adds one extra row at the bottom, and writes **"Summary: [Total Rows]"** in that row. This ensures the user sees the data and the total count clearly in one view.
+
+## 📸 Project Visuals
+
+### 1. System Configuration & Setup
+This shows the successful connection to the database and the Gemini API.
+![System Ready](./screenshots/system_ready.png)
+
+### 2. Handling API Challenges
+I documented the "Resource Exhausted" errors I faced during development to show my debugging process.
+![API Error](./screenshots/api_error.png)
+![Quota Limit](./screenshots/quota_limit.png)
+
+### 3. Final Successful Results
+The AI correctly translates natural language into SQL and provides a data summary.
+![Query Result 1](./screenshots/success_query_1.png)
+![Query Result 2](./screenshots/success_query_2.png)
+![Data Summary Row](./screenshots/summary_row.png)
