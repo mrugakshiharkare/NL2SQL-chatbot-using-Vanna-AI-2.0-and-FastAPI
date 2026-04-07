@@ -90,7 +90,7 @@ I tested the AI with 5 different questions to see how well it writes SQL for our
 * **Hard Questions:** The AI often **guesses the wrong names** for our tables. I fixed this by **giving the AI the exact table and column names before asking a question.
 * **Math Limits:** Even with a map, the AI still struggles with tricky math like percentages.
 
-👉 **[Click here to see the full Testing Report (RESULTS.md)](./RESULTS.md)**
+👉 **[Click here to see the full Testing Report (RESULTS.md)](https://github.com/mrugakshiharkare/NL2SQL-chatbot-using-Vanna-AI-2.0-and-FastAPI/blob/main/Results.md)**
 
 ## 📸 Project Visuals
 
