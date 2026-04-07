@@ -82,6 +82,16 @@ The assignment asked for a summary of the data. Since the Vanna website usually 
     3.  **Model Optimization:** I pivoted the implementation from Gemini 2.0 to **Gemini 2.5 Flash**. This specific model provided the necessary stability and higher throughput required to process the SQL generation and data summarization simultaneously.
 * **The Result:** This multi-step workaround successfully restored the chatbot's functionality, allowing for the final capture of system performance metrics and successful query results.
 
+  ## 📊 Testing & Results
+I tested the AI with 5 different questions to see how well it writes SQL for our database. I found that while the AI is great at simple tasks, it needs a bit of help with the hard ones.
+
+**What I Discovered:**
+* **Simple Questions:** The AI handles these perfectly on its own.
+* **Hard Questions:** The AI often **guesses the wrong names** for our tables. I fixed this by **giving the AI the exact table and column names before asking a question.
+* **Math Limits:** Even with a map, the AI still struggles with tricky math like percentages.
+
+👉 **[Click here to see the full Testing Report (RESULTS.md)](./RESULTS.md)**
+
 ## 📸 Project Visuals
 
 ### 1. System Configuration & Setup
