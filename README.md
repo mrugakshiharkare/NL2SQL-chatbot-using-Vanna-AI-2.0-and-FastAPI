@@ -39,8 +39,8 @@ python main.py
 `Open your browser and go to http://localhost:8084 to start asking questions!`
 
 ### 💡 Try These Questions:
-1. "Show me all the doctors in the clinic."
-2. "Who are the patients with appointments today?"
+1. "List all doctors and their specializations"
+2. "Show me appointments for last month"
 3. "Which doctor has the most appointments?"
 
 ## 🧠 Project Architecture & Approach
